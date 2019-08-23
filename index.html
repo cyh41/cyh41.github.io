@@ -152,104 +152,125 @@
   
   <main class="main" role="main">
   
-  <div class="content article-list">
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  </div>
   
-  <p class="article-meta">
-    <span class="article-date">
+    <div class="content">
+  <article id="post-$attrs" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+      <div class="article-meta">
+        <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2019/08/22/$attrs/" class="article-date">
-	  <time datetime="2019-08-22T01:53:59.803Z" itemprop="datePublished">Aug 22</time>
+	  <time datetime="2019-08-22T01:53:59.803Z" itemprop="datePublished">2019-08-22</time>
 	</a>
 </span>
-    
-    
+        
+        
 
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/22/$attrs/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
+        
 
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/23/What-s-up-Vue-属性-props/">What&#39;s up Vue -属性-props</a>
-    </h1>
-  
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/22/$attrs/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p><img src="/2019/08/22/$attrs/78876b0a7262847ad6433024c01fc9ba.jpg" alt="78876b0a7262847ad6433024c01fc9ba"></p>
+<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。</p>
+<h2 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h2><ul>
+<li><strong>Code</strong></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- China.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"China"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">HongKong</span> <span class="attr">where</span>=<span class="string">"China"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:money</span>=<span class="string">"100"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- HongKong.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"HongKong"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">      Hongkong is part of &#123;&#123;where&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">      show me the money:&#123;&#123;money&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name: <span class="string">"HongKong"</span>,</span></span><br><span class="line"><span class="actionscript">  props: [<span class="string">"where"</span>]</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>devTools</strong></li>
+</ul>
+<p><img src="/2019/08/22/$attrs/image-20190823103936036.png" alt="image-20190823103936036"></p>
+<ul>
+<li><p><strong>Rendering</strong></p>
+<p><img src="/2019/08/22/$attrs/image-20190823103419658.png" alt="image-20190823103419658"></p>
+</li>
+</ul>
+<blockquote>
+<p>图中 Mustache语法<code>money</code>未在实例中找到该属性的声明，会报<code>Property or method &quot;money&quot; is not defined on the instance but referenced during render</code>错误。请确定<strong>声明</strong>后再使用。</p>
+</blockquote>
+<p>可以看到，父组件 传递的属性未在 子组件<code>props</code>中声明，则会默认挂载至子组件根元素上。</p>
+<p>这是因为：未在子组件<code>props</code>中声明的属性，会被作为普通的HTML特性应用在子组件的根元素上。可以通过配置子组件<code>inheritAttrs:false</code>（2.4.0 新增）将默认行为去掉（即，在根元素中不会挂载继承属性）。但无论是否配置<code>inheritAttrs</code>，都可以通实例属性<code>$attrs</code>（2.4.0 新增）获取到。</p>
+<blockquote>
+<p>该属性不影响<code>class</code>和<code>style</code>。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//HongKong</span></span><br><span class="line">created()&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.$attrs)<span class="comment">//&#123;money:100&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Scene"><a href="#Scene" class="headerlink" title="Scene"></a>Scene</h2><p>当我们自行封装一个简易的<code>input</code>组件，在使用过程中，可能传入不同的多个原生属性。</p>
+<ul>
+<li>传统<code>props</code>写法：</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- box.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">:for</span>=<span class="string">"name"</span>&gt;</span>&#123;&#123;label&#125;&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">:type</span>=<span class="string">"type"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:value</span>=<span class="string">"value"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:name</span>=<span class="string">"name"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:placeholder</span>=<span class="string">"placeholder"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> ElInput <span class="keyword">from</span> <span class="string">"@/components/input.vue"</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  components: &#123;</span></span><br><span class="line"><span class="undefined">    ElInput</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  data() &#123;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="actionscript">      label: <span class="string">"姓名"</span>,</span></span><br><span class="line"><span class="actionscript">      <span class="comment">//要传入组件的属性</span></span></span><br><span class="line"><span class="actionscript">      name: <span class="string">"name"</span>,</span></span><br><span class="line"><span class="actionscript">      type: <span class="string">"text"</span>,</span></span><br><span class="line"><span class="actionscript">      value: <span class="string">"妮可基德曼"</span>,</span></span><br><span class="line"><span class="actionscript">      placeholder: <span class="string">"请输入姓名"</span></span></span><br><span class="line"><span class="undefined">    &#125;;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">clas</span>=<span class="string">"el-input"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"input"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">:type</span>=<span class="string">"type"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">:value</span>=<span class="string">"value"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">:name</span>=<span class="string">"name"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">:placeholder</span>=<span class="string">"placeholder"</span></span></span><br><span class="line"><span class="tag">           @<span class="attr">input</span>=<span class="string">"handleInput"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name: <span class="string">"ElInput"</span>,</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="actionscript">  props: [<span class="string">"name"</span>, <span class="string">"type"</span>, <span class="string">"value"</span>, <span class="string">"placeholder"</span>],</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    handleInput(event) &#123;</span></span><br><span class="line"><span class="actionscript">      <span class="keyword">this</span>.$emit(<span class="string">"input"</span>, event.target.value);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>$attrs</code>方法</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- box.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">:for</span>=<span class="string">"inputConfig.name"</span>&gt;</span>&#123;&#123;label&#125;&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-bind</span>=<span class="string">"inputConfig"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">v-model</span>=<span class="string">"value"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> ElInput <span class="keyword">from</span> <span class="string">"@/components/input.vue"</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">  components: &#123;</span></span><br><span class="line"><span class="undefined">    ElInput</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  data() &#123;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="actionscript">      label: <span class="string">"姓名"</span>,</span></span><br><span class="line"><span class="actionscript">      value: <span class="string">"nas"</span>,</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">      inputConfig: &#123;</span></span><br><span class="line"><span class="actionscript">        <span class="comment">//要传入组件的属性</span></span></span><br><span class="line"><span class="actionscript">        name: <span class="string">"name"</span>,</span></span><br><span class="line"><span class="actionscript">        type: <span class="string">"text"</span>,</span></span><br><span class="line"><span class="actionscript">        placeholder: <span class="string">"请输入姓名"</span></span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- input.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">clas</span>=<span class="string">"el-input"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"input"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">v-bind</span>=<span class="string">"$attrs"</span></span></span><br><span class="line"><span class="tag">           @<span class="attr">input</span>=<span class="string">"handleInput"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name: <span class="string">"ElInput"</span>,</span></span><br><span class="line"><span class="actionscript">  inheritAttrs: <span class="literal">false</span>,<span class="comment">//不加这条规则，$attrs会默认挂载到根元素上</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    handleInput(event) &#123;</span></span><br><span class="line"><span class="actionscript">      <span class="keyword">this</span>.$emit(<span class="string">"input"</span>, event.target.value);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>很明显的，<code>$attrs</code>减少了不少的代码量，整体看起来确实优雅很多，虽说<code>$attrs</code>可以代替<code>props</code>，但<code>$attrs</code>更适合原生属性或不需要处理的属性。 在很多场景下，比如要对属性进行校验、默认值、处理等操作，更建议使用<code>props</code>。每个属性都有它存在的意义，合理的运用不同属性应对不同的场景，才能发挥其最大作用。</p>
+</blockquote>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
+<li>Lifecycle</li>
+</ul>
+<p><code>$attrs</code>可访问的阶段是 <code>beforeCreate</code>，而<code>props</code>访问阶段为<code>created</code>。</p>
+<ul>
+<li><p>Render Function &amp; JSX</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//input.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'ElInput'</span>,</span><br><span class="line"></span><br><span class="line">  inheritAttrs: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  render(h) &#123;</span><br><span class="line">    <span class="comment">//<span class="doctag">TODO:</span>这里放jsx或render function</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleInput(event) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'input'</span>, event.target.value);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//render写法</span></span><br><span class="line">  render(h) &#123;</span><br><span class="line">    <span class="keyword">return</span> h(<span class="string">'div'</span>, &#123;</span><br><span class="line">      class: 'el-input',</span><br><span class="line">    &#125;, [</span><br><span class="line">      h(<span class="string">'input'</span>, &#123;</span><br><span class="line">        <span class="comment">//绑定在attrs上</span></span><br><span class="line">        attrs: <span class="keyword">this</span>.$attrs,</span><br><span class="line"></span><br><span class="line">        on: &#123;</span><br><span class="line">          input: <span class="keyword">this</span>.handleInput,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;),</span><br><span class="line">    ]);</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jsx写法  </span></span><br><span class="line">render(h) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"el-input"</span>&gt;</span></span></span><br><span class="line">      &lt;input attrs=&#123;this.$attrs&#125; on-input=&#123;this.handleInput&#125; /&gt;</span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>;</span></span><br><span class="line"><span class="xml">  &#125;,</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若 <code>v-bind=“$attrs”</code> 中的某个属性 已经有声明，则原生属性的优先级更高。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- $attrs为&#123;type:"text"&#125;，最后生效的为type="number" --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">v-bind</span>=<span class="string">"$attrs"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
+      
+    </div>
+    <!-- <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://cyh41.github.io/2019/08/22/$attrs/" title target="_blank" rel="external">https://cyh41.github.io/2019/08/22/$attrs/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cyh41" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.JPG" class="img-rounded w-full" alt>
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cyh41" target="_blank"><span class="text-dark">cyh41</span><small class="ml-1x">Screw you guys,I&#39;m going home</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
   </div>
+</div>
+
+
+    </div> -->
+  </article>
   
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2019/04/23/What-s-up-Vue-属性-props/" class="article-date">
-	  <time datetime="2019-04-23T11:11:51.000Z" itemprop="datePublished">Apr 23</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/frontEnd/">frontEnd</a>
-  </span>
+</div>
 
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/vue/">vue</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/04/23/What-s-up-Vue-属性-props/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/20/What-s-up-Vue-属性-attrs/">What&#39;s up Vue -属性-attrs</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2019/04/20/What-s-up-Vue-属性-attrs/" class="article-date">
-	  <time datetime="2019-04-20T09:16:01.000Z" itemprop="datePublished">Apr 20</time>
-	</a>
-</span>
-    
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/frontEnd/">frontEnd</a>
-  </span>
-
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/vue/">vue</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/04/20/What-s-up-Vue-属性-attrs/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
-
-    
-  </div>
 
    
 </main>
