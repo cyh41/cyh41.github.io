@@ -17,25 +17,25 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>south-park</title>
+  <title>$attrs | south-park</title>
   <meta name="description" content="Preface在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。 Basics Code  1234567&amp;lt;!-- China.vue --&amp;gt;&amp;lt;template&amp;gt;  &amp;lt;div class=&quot;China&quot;&amp;gt;    &amp;lt;Ho">
-<meta name="keywords" content="cyh41,Stussury41,js,node.js">
+<meta name="keywords" content="vue,component communication">
 <meta property="og:type" content="article">
-<meta property="og:title" content="south-park">
-<meta property="og:url" content="https://cyh41.github.io/2019/08/22/$attrs/index.html">
+<meta property="og:title" content="$attrs">
+<meta property="og:url" content="https://cyh41.github.io/2019/08/23/$attrs/index.html">
 <meta property="og:site_name" content="south-park">
 <meta property="og:description" content="Preface在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。 Basics Code  1234567&amp;lt;!-- China.vue --&amp;gt;&amp;lt;template&amp;gt;  &amp;lt;div class=&quot;China&quot;&amp;gt;    &amp;lt;Ho">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cyh41.github.io/2019/08/22/$attrs/78876b0a7262847ad6433024c01fc9ba.jpg">
-<meta property="og:image" content="https://cyh41.github.io/2019/08/22/$attrs/image-20190823103936036.png">
-<meta property="og:image" content="https://cyh41.github.io/2019/08/22/$attrs/image-20190823103419658.png">
-<meta property="og:updated_time" content="2019-08-23T08:13:59.490Z">
+<meta property="og:image" content="https://cyh41.github.io/2019/08/23/$attrs/78876b0a7262847ad6433024c01fc9ba.jpg">
+<meta property="og:image" content="https://cyh41.github.io/2019/08/23/$attrs/image-20190823103936036.png">
+<meta property="og:image" content="https://cyh41.github.io/2019/08/23/$attrs/image-20190823103419658.png">
+<meta property="og:updated_time" content="2019-08-23T08:26:38.496Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="south-park">
+<meta name="twitter:title" content="$attrs">
 <meta name="twitter:description" content="Preface在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。 Basics Code  1234567&amp;lt;!-- China.vue --&amp;gt;&amp;lt;template&amp;gt;  &amp;lt;div class=&quot;China&quot;&amp;gt;    &amp;lt;Ho">
-<meta name="twitter:image" content="https://cyh41.github.io/2019/08/22/$attrs/78876b0a7262847ad6433024c01fc9ba.jpg">
+<meta name="twitter:image" content="https://cyh41.github.io/2019/08/23/$attrs/78876b0a7262847ad6433024c01fc9ba.jpg">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://cyh41.github.io/2019/08/22/$attrs/index.html">
+  <link rel="canonical" href="https://cyh41.github.io/2019/08/23/$attrs/index.html">
   
   
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -162,25 +162,43 @@
     
     <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      $attrs
+    </h1>
+  
+
+      
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/08/22/$attrs/" class="article-date">
-	  <time datetime="2019-08-22T01:53:59.803Z" itemprop="datePublished">2019-08-22</time>
+	<a href="/2019/08/23/$attrs/" class="article-date">
+	  <time datetime="2019-08-23T08:24:06.000Z" itemprop="datePublished">2019-08-23</time>
 	</a>
 </span>
         
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/front-end/">front-end</a>
+  </span>
+
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/component-communication/">component communication</a>, <a class="article-tag-link" href="/tags/vue/">vue</a>
+  </span>
+
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/22/$attrs/#comments" class="article-comment-link">Comments</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/23/$attrs/#comments" class="article-comment-link">Comments</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p><img src="/2019/08/22/$attrs/78876b0a7262847ad6433024c01fc9ba.jpg" alt="78876b0a7262847ad6433024c01fc9ba"></p>
+        <p><img src="/2019/08/23/$attrs/78876b0a7262847ad6433024c01fc9ba.jpg" alt="78876b0a7262847ad6433024c01fc9ba"></p>
 <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。</p>
 <h2 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h2><ul>
 <li><strong>Code</strong></li>
@@ -190,10 +208,10 @@
 <ul>
 <li><strong>devTools</strong></li>
 </ul>
-<p><img src="/2019/08/22/$attrs/image-20190823103936036.png" alt="image-20190823103936036"></p>
+<p><img src="/2019/08/23/$attrs/image-20190823103936036.png" alt="image-20190823103936036"></p>
 <ul>
 <li><p><strong>Rendering</strong></p>
-<p><img src="/2019/08/22/$attrs/image-20190823103419658.png" alt="image-20190823103419658"></p>
+<p><img src="/2019/08/23/$attrs/image-20190823103419658.png" alt="image-20190823103419658"></p>
 </li>
 </ul>
 <blockquote>
@@ -242,7 +260,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://cyh41.github.io/2019/08/22/$attrs/" title target="_blank" rel="external">https://cyh41.github.io/2019/08/22/$attrs/</a>
+      <a href="https://cyh41.github.io/2019/08/23/$attrs/" title="$attrs" target="_blank" rel="external">https://cyh41.github.io/2019/08/23/$attrs/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -285,6 +303,16 @@
 
   <nav class="bar bar-footer clearfix" data-stick-bottom>
   <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/08/23/listeners/" title="$listeners"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
   
   
   
