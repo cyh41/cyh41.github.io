@@ -5533,8 +5533,7 @@ pre .js .function {
 
 pre,
 .highlight {
-  /*TODO: background: #fafafa; */
-  background: #2d2d2d;
+  background: #fafafa;
   margin: 10px 0;
   padding: 15px 10px;
   overflow: auto;
@@ -5568,8 +5567,6 @@ pre code {
   position: relative;
   padding: 32px 10px 0 10px;
   border-radius: 4px;
-  /* TODO: */
-  box-shadow: 0 10px 30px 0px rgba(0, 0, 0, 0.4);
 }
 
 .highlight:before {
@@ -5580,8 +5577,7 @@ pre code {
   top: 0;
   left: 0;
   right: 0;
-  /*TODO: background-color: #f6f6f6; */
-  background: #21252b;
+  background-color: #f6f6f6;
   padding: 0 10px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -5643,7 +5639,6 @@ pre code {
 .highlight .line {
   height: 24px;
   line-height: 24px;
-  color: #abb2bf;
 }
 
 .highlight .gutter pre {
