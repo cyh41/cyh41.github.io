@@ -293,7 +293,9 @@
     
   <section id="comments">
   	
-      <div id="vcomments"></div>
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
     
   </section>
 
@@ -377,29 +379,21 @@
 
 
     
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/valine"></script>
-  <script type="text/javascript">
-  var GUEST = ['nick', 'mail', 'link'];
-  var meta = 'nick,mail';
-  meta = meta.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#vcomments',
-    verify: false,
-    notify: false,
-    appId: 'gsxB91wMCxm4qpJFTUeYag27-gzGzoHsz',
-    appKey: 'VG1D3UgPa4HMhL8YflbYtyoK',
-    placeholder: 'what do you wanna say',
-    avatar: 'mm',
-    meta: meta,
-    pageSize: '10' || 10,
-    visitor: false
-  });
-  </script>
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'https://cyh41.github.io/2019/08/23/$attrs/';
+        
+        this.page.identifier = '$attrs';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'cyh41' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 
-     
 
 
 
