@@ -18,13 +18,13 @@
   
   
   <title>vue-$attrs | south-park</title>
-  <meta name="description" content="Preface 在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。  Basics  Code  1234567&amp;lt;!-- China.vue --&amp;gt;&amp;lt;template&amp;gt;  &amp;lt;div class=&quot;China&quot;&amp;gt;    &amp;l">
+  <meta name="description" content="Preface在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。 Basics Code  1234567&amp;lt;!-- China.vue --&amp;gt;&amp;lt;template&amp;gt;  &amp;lt;div class=&quot;China&quot;&amp;gt;    &amp;lt;Ho">
 <meta name="keywords" content="What&#39;s up Vue,component communication">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue-$attrs">
 <meta property="og:url" content="https://cyh41.github.io/2019/08/23/vue-$attrs/index.html">
 <meta property="og:site_name" content="south-park">
-<meta property="og:description" content="Preface 在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。  Basics  Code  1234567&amp;lt;!-- China.vue --&amp;gt;&amp;lt;template&amp;gt;  &amp;lt;div class=&quot;China&quot;&amp;gt;    &amp;l">
+<meta property="og:description" content="Preface在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。 Basics Code  1234567&amp;lt;!-- China.vue --&amp;gt;&amp;lt;template&amp;gt;  &amp;lt;div class=&quot;China&quot;&amp;gt;    &amp;lt;Ho">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cyh41.github.io/2019/08/23/vue-$attrs/78876b0a7262847ad6433024c01fc9ba.jpg">
 <meta property="og:image" content="https://cyh41.github.io/2019/08/23/vue-$attrs/image-20190823103936036.png">
@@ -32,7 +32,7 @@
 <meta property="og:updated_time" content="2019-09-20T07:33:34.856Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-$attrs">
-<meta name="twitter:description" content="Preface 在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。  Basics  Code  1234567&amp;lt;!-- China.vue --&amp;gt;&amp;lt;template&amp;gt;  &amp;lt;div class=&quot;China&quot;&amp;gt;    &amp;l">
+<meta name="twitter:description" content="Preface在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。 Basics Code  1234567&amp;lt;!-- China.vue --&amp;gt;&amp;lt;template&amp;gt;  &amp;lt;div class=&quot;China&quot;&amp;gt;    &amp;lt;Ho">
 <meta name="twitter:image" content="https://cyh41.github.io/2019/08/23/vue-$attrs/78876b0a7262847ad6433024c01fc9ba.jpg">
   <!-- Canonical links -->
   <link rel="canonical" href="https://cyh41.github.io/2019/08/23/vue-$attrs/index.html">
@@ -199,10 +199,8 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p><img src="/2019/08/23/vue-$attrs/78876b0a7262847ad6433024c01fc9ba.jpg" alt="78876b0a7262847ad6433024c01fc9ba"></p>
-<h2 id="preface"><a class="markdownIt-Anchor" href="#preface"></a> Preface</h2>
-<p>在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。</p>
-<h2 id="basics"><a class="markdownIt-Anchor" href="#basics"></a> Basics</h2>
-<ul>
+<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>在我们日常通信中，prop，基本可以满足业务场景中父子通信的情况。但在高级组件中，比如自己写的通用组件，二次封装element等UI框架等场景，attrs和listeners就大有作为了。</p>
+<h2 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h2><ul>
 <li><strong>Code</strong></li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- China.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"China"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">HongKong</span> <span class="attr">where</span>=<span class="string">"China"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">:money</span>=<span class="string">"100"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -212,8 +210,7 @@
 </ul>
 <p><img src="/2019/08/23/vue-$attrs/image-20190823103936036.png" alt="image-20190823103936036"></p>
 <ul>
-<li>
-<p><strong>Rendering</strong></p>
+<li><p><strong>Rendering</strong></p>
 <p><img src="/2019/08/23/vue-$attrs/image-20190823103419658.png" alt="image-20190823103419658"></p>
 </li>
 </ul>
@@ -226,8 +223,7 @@
 <p>该属性不影响<code>class</code>和<code>style</code>。</p>
 </blockquote>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//HongKong</span></span><br><span class="line">created()&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.$attrs)<span class="comment">//&#123;money:100&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="scene"><a class="markdownIt-Anchor" href="#scene"></a> Scene</h2>
-<p>当我们自行封装一个简易的<code>input</code>组件，在使用过程中，可能传入不同的多个原生属性。</p>
+<h2 id="Scene"><a href="#Scene" class="headerlink" title="Scene"></a>Scene</h2><p>当我们自行封装一个简易的<code>input</code>组件，在使用过程中，可能传入不同的多个原生属性。</p>
 <ul>
 <li>传统<code>props</code>写法：</li>
 </ul>
@@ -241,20 +237,17 @@
 <blockquote>
 <p>很明显的，<code>$attrs</code>减少了不少的代码量，整体看起来确实优雅很多，虽说<code>$attrs</code>可以代替<code>props</code>，但<code>$attrs</code>更适合原生属性或不需要处理的属性。 在很多场景下，比如要对属性进行校验、默认值、处理等操作，更建议使用<code>props</code>。每个属性都有它存在的意义，合理的运用不同属性应对不同的场景，才能发挥其最大作用。</p>
 </blockquote>
-<h2 id="others"><a class="markdownIt-Anchor" href="#others"></a> Others</h2>
-<ul>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
 <li>Lifecycle</li>
 </ul>
 <p><code>$attrs</code>可访问的阶段是 <code>beforeCreate</code>，而<code>props</code>访问阶段为<code>created</code>。</p>
 <ul>
-<li>
-<p>Render Function &amp; JSX</p>
+<li><p>Render Function &amp; JSX</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//input.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'ElInput'</span>,</span><br><span class="line"></span><br><span class="line">  inheritAttrs: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  render(h) &#123;</span><br><span class="line">    <span class="comment">//<span class="doctag">TODO:</span>这里放jsx或render function</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleInput(event) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$emit(<span class="string">'input'</span>, event.target.value);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//render写法</span></span><br><span class="line">  render(h) &#123;</span><br><span class="line">    <span class="keyword">return</span> h(<span class="string">'div'</span>, &#123;</span><br><span class="line">      class: 'el-input',</span><br><span class="line">    &#125;, [</span><br><span class="line">      h(<span class="string">'input'</span>, &#123;</span><br><span class="line">        <span class="comment">//绑定在attrs上</span></span><br><span class="line">        attrs: <span class="keyword">this</span>.$attrs,</span><br><span class="line"></span><br><span class="line">        on: &#123;</span><br><span class="line">          input: <span class="keyword">this</span>.handleInput,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;),</span><br><span class="line">    ]);</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jsx写法  </span></span><br><span class="line">render(h) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"el-input"</span>&gt;</span></span></span><br><span class="line">      &lt;input attrs=&#123;this.$attrs&#125; on-input=&#123;this.handleInput&#125; /&gt;</span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>;</span></span><br><span class="line"><span class="xml">  &#125;,</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>若 <code>v-bind=“$attrs”</code> 中的某个属性 已经有声明，则原生属性的优先级更高。</p>
+<li><p>若 <code>v-bind=“$attrs”</code> 中的某个属性 已经有声明，则原生属性的优先级更高。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- $attrs为&#123;type:"text"&#125;，最后生效的为type="number" --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">v-bind</span>=<span class="string">"$attrs"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -316,7 +309,7 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2019/09/17/vue-双向绑定与事件/" title="vue-双向绑定与事件"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+      <a href="/2019/09/17/vue-双向绑定与事件(上)/" title="vue-双向绑定与事件(上)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
     </li>
     
     
