@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>vue-双向绑定与事件(下) | south-park</title>
+  <meta name="description" content="非表单元素实现双向绑定dialog组件这里封装一个简易的 Dialog ，需要实现   父组件可以操作显示与否 2.Dialog组件可以自行隐藏  12345678910111213141516171819202122232425262728293031&amp;lt;!--home.vue --&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=&quot;container&quot;&amp;gt;&amp;lt;!">
+<meta name="keywords" content="What&#39;s up Vue,component communication">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-双向绑定与事件(下)">
+<meta property="og:url" content="https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/index.html">
+<meta property="og:site_name" content="south-park">
+<meta property="og:description" content="非表单元素实现双向绑定dialog组件这里封装一个简易的 Dialog ，需要实现   父组件可以操作显示与否 2.Dialog组件可以自行隐藏  12345678910111213141516171819202122232425262728293031&amp;lt;!--home.vue --&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=&quot;container&quot;&amp;gt;&amp;lt;!">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/1004495.jpg">
+<meta property="og:updated_time" content="2019-09-21T07:43:18.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue-双向绑定与事件(下)">
+<meta name="twitter:description" content="非表单元素实现双向绑定dialog组件这里封装一个简易的 Dialog ，需要实现   父组件可以操作显示与否 2.Dialog组件可以自行隐藏  12345678910111213141516171819202122232425262728293031&amp;lt;!--home.vue --&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=&quot;container&quot;&amp;gt;&amp;lt;!">
+<meta name="twitter:image" content="https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/1004495.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/index.html">
+  
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/cyh41" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.JPG" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">cyh41</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Screw you guys,I&#39;m going home</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> HangZhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech>
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cyh41" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/345594241" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/@C_yh41" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-vue-双向绑定与事件(下)" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue-双向绑定与事件(下)
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/09/21/vue-双向绑定与事件(下)/" class="article-date">
+	  <time datetime="2019-09-21T03:06:10.000Z" itemprop="datePublished">2019-09-21</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/front-end/">front-end</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/What-s-up-Vue/">What's up Vue</a>, <a class="article-tag-link" href="/tags/component-communication/">component communication</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/09/21/vue-双向绑定与事件(下)/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p><img src="/2019/09/21/vue-双向绑定与事件(下)/1004495.jpg" alt="1004495"></p>
+<h2 id="非表单元素实现双向绑定"><a href="#非表单元素实现双向绑定" class="headerlink" title="非表单元素实现双向绑定"></a><strong>非表单元素实现双向绑定</strong></h2><h3 id="dialog组件"><a href="#dialog组件" class="headerlink" title="dialog组件"></a>dialog组件</h3><p>这里封装一个简易的 Dialog ，需要实现 </p>
+<ol>
+<li>父组件可以操作显示与否</li>
+<li>2.Dialog组件可以自行隐藏</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--home.vue --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--dialog组件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">:visible</span>=<span class="string">"visible"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"switchVisible(!visible)"</span>&gt;</span>切换弹窗显隐<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name:<span class="string">'home'</span>,</span></span><br><span class="line"></span><br><span class="line">  methods:&#123;</span><br><span class="line"><span class="actionscript">    switchVisible(visible=<span class="literal">false</span>)&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="keyword">this</span>.visible = visible</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  data()&#123;</span><br><span class="line"><span class="actionscript">    <span class="keyword">return</span>&#123;</span></span><br><span class="line"><span class="actionscript">      visible:<span class="literal">false</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- style部分略--&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--el-dialog.vue --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"modal"</span> <span class="attr">:style</span>=<span class="string">"&#123;display: visible ? 'block' : 'none'&#125;"</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"handleHide"</span>&gt;</span>隐藏弹窗<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name:<span class="string">'el-dialog'</span>,</span></span><br><span class="line">  </span><br><span class="line">  props:&#123;</span><br><span class="line"><span class="javascript">    visible:<span class="built_in">Boolean</span></span></span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  methods:&#123;</span><br><span class="line"><span class="actionscript">    <span class="comment">/**隐藏弹窗*/</span></span></span><br><span class="line">    handleHide()&#123;</span><br><span class="line"><span class="actionscript">      <span class="comment">//<span class="doctag">TODO:</span>这里应该怎么写呢</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- style部分略--&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这么写可以实现 home组件内 可以切换 dialog组件的显隐。但是弹窗组件内部应该怎么去操作  <code>visible</code> 呢？</p>
+<p>或许你会想说这没做。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**隐藏弹窗*/</span></span><br><span class="line">handleHide()&#123;</span><br><span class="line">  <span class="keyword">this</span>.visible = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是在上篇 有说过，vue其实是单数据流。在官网prop的知识点当中也有说过避免子组件直接操作父组件传递的prop的值，这样会导致你的数据流向难于理解。比如说如果一个通用组件被一个组件所复用，那么值的改变会变得非常混乱。</p>
+<p>参考上篇的 <code>v-model</code> 的组件通信用法，我们同样可以把该方法的原理用在非表单组件的通信上。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--home.vue--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--dialog组件，在上面绑定prop与event --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">:visible</span>=<span class="string">"visible"</span> @<span class="attr">handleHide</span>=<span class="string">"switchVisible"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** dialog.vue */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**隐藏弹窗*/</span></span><br><span class="line">handleHide()&#123;</span><br><span class="line">  <span class="keyword">this</span>.$emit(<span class="string">'handleHide'</span>,<span class="literal">false</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>$emit</code> 方法在子父组件通信中非常常见。它的第一个参数值为 <code>event</code> 名，该<code>event</code> 必须在父组件调用子组件 template 的位置上有声明。该事件名我们可以称它为<strong>监听器</strong>，当触发该事件时，附加参数都会传给监听器回调。多参数传递类似 <code>apply</code>。</p>
+</blockquote>
+<h3 id="sync修饰符"><a href="#sync修饰符" class="headerlink" title=".sync修饰符"></a><code>.sync</code>修饰符</h3><p>为使 这个逻辑更容易理解，声明的事件更像 是个 <strong>监听器</strong>。我们可以用 <code>update:myPropName</code> 的模式去重写。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--home.vue--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--dialog组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">:visible</span>=<span class="string">"visible"</span> 	     @<span class="attr">update:visible</span>=<span class="string">"switchVisible"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** dialog.vue */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**隐藏弹窗*/</span></span><br><span class="line">handleHide()&#123;</span><br><span class="line">  <span class="keyword">this</span>.$emit(<span class="string">'update:visible'</span>,<span class="literal">false</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种写法我们无需关心事件的名称，只需要注意需要改变的值。监听器的名称我们可以都统一用 <code>update</code>。这样的写法更加专注。如果遇到多个属性需要同时监听的时候，这么写也会优雅很多。</p>
+<p>在使用 表单时，<code>v-model</code> 把这些prop+event进行了封装。同样，非表单元素也提供了类似的方案，那就是<code>.sync</code>修饰符。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--home.vue--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--dialog组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">:visible.sync</span>=<span class="string">"visible"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当遇到多个一个对象中多个值需要监听的时候：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--home.vue--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--dialog组件,object = &#123;name:'zhenyizhen',age:70,sex:'unknown'&#125;--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">:visible.sync</span>=<span class="string">"object"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="listeners"><a href="#listeners" class="headerlink" title="$listeners"></a>$listeners</h3><p>回到我们前面说的 <code>event</code>。在上一篇的 自定义input组件当中。如果我们想直接通过父组件自定义input组件的方法，普通的写法会无效，需要添加<code>.native</code> ，同时input组件的根元素必须为input标签。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--home.vue --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 无效--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-input</span> @<span class="attr">focus</span>=<span class="string">"focus"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 有效--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-input</span> @<span class="attr">focus.native</span>=<span class="string">"focus"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name:<span class="string">'home'</span>,</span></span><br><span class="line">  methods:&#123;</span><br><span class="line">    focus()&#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(focus)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>同 <code>$attrs</code> 接收组件传递的属性，vue也拥有个类似的属性，用来接收方法，叫 <code>$listeners</code>（2.4.0新增）。所有未添加 <code>.native</code> 修饰符的方法，都会被存储至此。该属性也可以在  <code>beforeCreate</code> 阶段访问。在上面的例子中，如果input组件的根元素不是input标签，就可以使用此方法。</p>
+
+      
+    </div>
+    <!-- <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/" title="vue-双向绑定与事件(下)" target="_blank" rel="external">https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cyh41" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.JPG" class="img-rounded w-full" alt>
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cyh41" target="_blank"><span class="text-dark">cyh41</span><small class="ml-1x">Screw you guys,I&#39;m going home</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div> -->
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/09/17/vue-双向绑定与事件(上)/" title="vue-双向绑定与事件(上)"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cyh41" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/345594241" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/@C_yh41" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+  window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/';
+        
+        this.page.identifier = 'vue-双向绑定与事件(下)';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'cyh41' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
