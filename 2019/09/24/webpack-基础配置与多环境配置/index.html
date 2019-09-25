@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>webpack-基础配置与多环境配置 | south-park</title>
+  <meta name="description" content="Prefacewebpack 是个 模块打包器。从配置的入口进入，找寻所有相关依赖。并将所有依赖打包成一个或多个 bundle。 webpack默认支持 common.js 规范和 es6 规范。 Install从4.0开始，需要同时安装 webpack-cli ，用来解析命令行后的参数。 只需在开发环境中安装使用 1yarn add webpack webpack-cli --save-dev">
+<meta name="keywords" content="What&#39;s up webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack-基础配置与多环境配置">
+<meta property="og:url" content="https://cyh41.github.io/2019/09/24/webpack-基础配置与多环境配置/index.html">
+<meta property="og:site_name" content="south-park">
+<meta property="og:description" content="Prefacewebpack 是个 模块打包器。从配置的入口进入，找寻所有相关依赖。并将所有依赖打包成一个或多个 bundle。 webpack默认支持 common.js 规范和 es6 规范。 Install从4.0开始，需要同时安装 webpack-cli ，用来解析命令行后的参数。 只需在开发环境中安装使用 1yarn add webpack webpack-cli --save-dev">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cyh41.github.io/2019/09/24/webpack-基础配置与多环境配置/webpack.svg">
+<meta property="og:updated_time" content="2019-09-25T08:41:27.692Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack-基础配置与多环境配置">
+<meta name="twitter:description" content="Prefacewebpack 是个 模块打包器。从配置的入口进入，找寻所有相关依赖。并将所有依赖打包成一个或多个 bundle。 webpack默认支持 common.js 规范和 es6 规范。 Install从4.0开始，需要同时安装 webpack-cli ，用来解析命令行后的参数。 只需在开发环境中安装使用 1yarn add webpack webpack-cli --save-dev">
+<meta name="twitter:image" content="https://cyh41.github.io/2019/09/24/webpack-基础配置与多环境配置/webpack.svg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://cyh41.github.io/2019/09/24/webpack-基础配置与多环境配置/index.html">
+  
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/cyh41" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.JPG" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">cyh41</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Screw you guys,I&#39;m going home</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> HangZhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech>
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cyh41" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/345594241" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/@C_yh41" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-webpack-基础配置与多环境配置" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      webpack-基础配置与多环境配置
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/09/24/webpack-基础配置与多环境配置/" class="article-date">
+	  <time datetime="2019-09-24T01:32:44.000Z" itemprop="datePublished">2019-09-24</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/front-end/">front-end</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/What-s-up-webpack/">What's up webpack</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/09/24/webpack-基础配置与多环境配置/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p><center><img src="/2019/09/24/webpack-基础配置与多环境配置/webpack.svg" alt="webpack"></center></p>
+<h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>webpack 是个 <strong>模块打包器</strong>。从配置的入口进入，找寻所有相关依赖。并将所有依赖打包成一个或多个 <em>bundle</em>。</p>
+<p>webpack默认支持 <code>common.js</code> 规范和 <code>es6</code> 规范。</p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p>从4.0开始，需要同时安装 <code>webpack-cli</code> ，用来解析命令行后的参数。</p>
+<p>只需在开发环境中安装使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add webpack webpack-cli --save-dev</span><br></pre></td></tr></table></figure>
+<p>在<code>package.json</code>配置<code>scripts</code>既可使用。</p>
+<p>以下，打包有两种方法，一种是 <code>dev</code>模式（基本用不到），一种是<code>prod</code>模式。webpack4.0的config会根据<code>mode</code> 判断当前命令是在开发环境执行还是生产环境。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"scripts":&#123;</span><br><span class="line">  "dev-build": "webpack --mode development"</span><br><span class="line">  "build": "webpack --mode produciton"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="区分环境配置"><a href="#区分环境配置" class="headerlink" title="区分环境配置"></a>区分环境配置</h2><p>在开发过程中，为了更灵活的配置不同的环境，可以引入一个<strong>变量</strong>来区分不同的环境。并且通过 <code>--config</code> 设置需要访问的配置文件。</p>
+<p>script中的命令，会找 <code>node_modules</code> 下的 <code>.bin</code> 目录进行执行。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"scripts":&#123;</span><br><span class="line">  "dev-build": "webpack --env.development --config ./build/webpack.base.js",</span><br><span class="line">  </span><br><span class="line">  "build": "webpack --env.produciton --config ./build/webpack.base.js"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在根目录新建 <code>build</code>文件夹，内部新建</p>
+<ul>
+<li>公共配置 <code>webpack.base.js</code></li>
+<li>开发环境 <code>webpack.dev.js</code></li>
+<li>生产环境 <code>webpack.prod.js</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**webpack.base.js*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//引入开发和生产的配置config</span></span><br><span class="line"><span class="keyword">const</span> dev = <span class="built_in">require</span>(<span class="string">'./webpack.dev'</span>);</span><br><span class="line"><span class="keyword">const</span> prod = <span class="built_in">require</span>(<span class="string">'./webpack.pro'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//插件：用来合并base.config和当前环境的config</span></span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">env</span>) =&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> isDev = env.development;<span class="comment">//是否是开发环境</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> base = &#123;</span><br><span class="line">    <span class="comment">//<span class="doctag">TODO:</span>公共配置</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//根据环境选择不同的config配置，这里只配置了两种常用环境</span></span><br><span class="line">  <span class="keyword">return</span> isDev ? merge(base,dev) : merge(base,prod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h2><p><code>webpack-dev-server</code> 用于本地开发环境下，可以热更新，而无需重复打包。它打包在内存当中，而不是磁盘中。默认访问项目的根目录。</p>
+<ul>
+<li><p>安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add webpack-dev-server --save-dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>配置脚本</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"scripts"</span>:&#123;</span><br><span class="line">  <span class="string">"serve"</span>: <span class="string">"webpack-dev-server --env.development --config ./build/webpack.base.js"</span>,</span><br><span class="line">  </span><br><span class="line">  <span class="string">"build"</span>: <span class="string">"webpack --env.produciton --config ./build/webpack.base.js"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置config</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**webpack.dev.js*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  mode:<span class="string">'development'</span>,</span><br><span class="line">  </span><br><span class="line">  devServer:&#123;</span><br><span class="line">    port:<span class="number">8080</span>,</span><br><span class="line">    compress:<span class="literal">true</span>,<span class="comment">//是否压缩</span></span><br><span class="line">    contentBase:path.resolve(__dirname,<span class="string">'../dist'</span>)<span class="comment">//告诉服务器从哪个目录中提取内容</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="webpack基础配置"><a href="#webpack基础配置" class="headerlink" title="webpack基础配置"></a>webpack基础配置</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**webpack.base.js*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dev = <span class="built_in">require</span>(<span class="string">'./webpack.dev'</span>);</span><br><span class="line"><span class="keyword">const</span> prod = <span class="built_in">require</span>(<span class="string">'./webpack.pro'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">env</span>)=&gt;</span>&#123;</span><br><span class="line">   <span class="keyword">const</span> isDev = env.development;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">const</span> base = &#123;</span><br><span class="line">      <span class="comment">//配置入口指引webpack启动，路径需要绝对路径</span></span><br><span class="line">      entry:path.resolve(__dirname,<span class="string">'../src/index'</span>),<span class="comment">//单文件</span></span><br><span class="line">      <span class="comment">/**</span></span><br><span class="line"><span class="comment">      *多文件打包</span></span><br><span class="line"><span class="comment">      *entry:&#123;</span></span><br><span class="line"><span class="comment">      *home: './home.js',</span></span><br><span class="line"><span class="comment">      *about: './about.js',</span></span><br><span class="line"><span class="comment">      *contact: './contact.js'</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">//配置打包的出口</span></span><br><span class="line">      output:&#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        <span class="comment">//filename:'[name].bundle.js', name值会根据多入口的name配置</span></span><br><span class="line">        <span class="comment">//filename: '[name].[hash].bundle.js',has打包模式</span></span><br><span class="line">        </span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'../dist'</span>)<span class="comment">//打包的出口</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+    <!-- <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://cyh41.github.io/2019/09/24/webpack-基础配置与多环境配置/" title="webpack-基础配置与多环境配置" target="_blank" rel="external">https://cyh41.github.io/2019/09/24/webpack-基础配置与多环境配置/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cyh41" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.JPG" class="img-rounded w-full" alt>
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cyh41" target="_blank"><span class="text-dark">cyh41</span><small class="ml-1x">Screw you guys,I&#39;m going home</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div> -->
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/09/21/vue-双向绑定与事件(下)/" title="vue-双向绑定与事件(下)"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cyh41" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/345594241" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/@C_yh41" target="_blank" title="Twitter" data-toggle="tooltip" data-placement="top"><i class="icon icon-twitter"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+  window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'https://cyh41.github.io/2019/09/24/webpack-基础配置与多环境配置/';
+        
+        this.page.identifier = 'webpack-基础配置与多环境配置';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'cyh41' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
