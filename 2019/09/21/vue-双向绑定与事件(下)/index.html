@@ -18,19 +18,19 @@
   
   
   <title>vue-双向绑定与事件(下) | south-park</title>
-  <meta name="description" content="非表单元素实现双向绑定  dialog组件 这里封装一个简易的 Dialog ，需要实现  父组件可以操作显示与否 2.Dialog组件可以自行隐藏  12345678910111213141516171819202122232425262728293031&amp;lt;!--home.vue --&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=&quot;container&quot;&amp;gt;&amp;l">
+  <meta name="description" content="非表单元素实现双向绑定dialog组件这里封装一个简易的 Dialog ，需要实现   父组件可以操作显示与否 2.Dialog组件可以自行隐藏  12345678910111213141516171819202122232425262728293031&amp;lt;!--home.vue --&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=&quot;container&quot;&amp;gt;&amp;lt;!">
 <meta name="keywords" content="What&#39;s up Vue,component communication">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue-双向绑定与事件(下)">
 <meta property="og:url" content="https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/index.html">
 <meta property="og:site_name" content="south-park">
-<meta property="og:description" content="非表单元素实现双向绑定  dialog组件 这里封装一个简易的 Dialog ，需要实现  父组件可以操作显示与否 2.Dialog组件可以自行隐藏  12345678910111213141516171819202122232425262728293031&amp;lt;!--home.vue --&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=&quot;container&quot;&amp;gt;&amp;l">
+<meta property="og:description" content="非表单元素实现双向绑定dialog组件这里封装一个简易的 Dialog ，需要实现   父组件可以操作显示与否 2.Dialog组件可以自行隐藏  12345678910111213141516171819202122232425262728293031&amp;lt;!--home.vue --&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=&quot;container&quot;&amp;gt;&amp;lt;!">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/1004495.jpg">
 <meta property="og:updated_time" content="2019-09-21T07:43:18.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-双向绑定与事件(下)">
-<meta name="twitter:description" content="非表单元素实现双向绑定  dialog组件 这里封装一个简易的 Dialog ，需要实现  父组件可以操作显示与否 2.Dialog组件可以自行隐藏  12345678910111213141516171819202122232425262728293031&amp;lt;!--home.vue --&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=&quot;container&quot;&amp;gt;&amp;l">
+<meta name="twitter:description" content="非表单元素实现双向绑定dialog组件这里封装一个简易的 Dialog ，需要实现   父组件可以操作显示与否 2.Dialog组件可以自行隐藏  12345678910111213141516171819202122232425262728293031&amp;lt;!--home.vue --&amp;gt;&amp;lt;template&amp;gt;&amp;lt;div class=&quot;container&quot;&amp;gt;&amp;lt;!">
 <meta name="twitter:image" content="https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/1004495.jpg">
   <!-- Canonical links -->
   <link rel="canonical" href="https://cyh41.github.io/2019/09/21/vue-双向绑定与事件(下)/index.html">
@@ -197,9 +197,7 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p><img src="/2019/09/21/vue-双向绑定与事件(下)/1004495.jpg" alt="1004495"></p>
-<h2 id="非表单元素实现双向绑定"><a class="markdownIt-Anchor" href="#非表单元素实现双向绑定"></a> <strong>非表单元素实现双向绑定</strong></h2>
-<h3 id="dialog组件"><a class="markdownIt-Anchor" href="#dialog组件"></a> dialog组件</h3>
-<p>这里封装一个简易的 Dialog ，需要实现</p>
+<h2 id="非表单元素实现双向绑定"><a href="#非表单元素实现双向绑定" class="headerlink" title="非表单元素实现双向绑定"></a><strong>非表单元素实现双向绑定</strong></h2><h3 id="dialog组件"><a href="#dialog组件" class="headerlink" title="dialog组件"></a>dialog组件</h3><p>这里封装一个简易的 Dialog ，需要实现 </p>
 <ol>
 <li>父组件可以操作显示与否</li>
 <li>2.Dialog组件可以自行隐藏</li>
@@ -216,8 +214,7 @@
 <blockquote>
 <p><code>$emit</code> 方法在子父组件通信中非常常见。它的第一个参数值为 <code>event</code> 名，该<code>event</code> 必须在父组件调用子组件 template 的位置上有声明。该事件名我们可以称它为<strong>监听器</strong>，当触发该事件时，附加参数都会传给监听器回调。多参数传递类似 <code>apply</code>。</p>
 </blockquote>
-<h3 id="sync修饰符"><a class="markdownIt-Anchor" href="#sync修饰符"></a> <code>.sync</code>修饰符</h3>
-<p>为使 这个逻辑更容易理解，声明的事件更像 是个 <strong>监听器</strong>。我们可以用 <code>update:myPropName</code> 的模式去重写。</p>
+<h3 id="sync修饰符"><a href="#sync修饰符" class="headerlink" title=".sync修饰符"></a><code>.sync</code>修饰符</h3><p>为使 这个逻辑更容易理解，声明的事件更像 是个 <strong>监听器</strong>。我们可以用 <code>update:myPropName</code> 的模式去重写。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--home.vue--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--dialog组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">:visible</span>=<span class="string">"visible"</span> 	     @<span class="attr">update:visible</span>=<span class="string">"switchVisible"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** dialog.vue */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**隐藏弹窗*/</span></span><br><span class="line">handleHide()&#123;</span><br><span class="line">  <span class="keyword">this</span>.$emit(<span class="string">'update:visible'</span>,<span class="literal">false</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这种写法我们无需关心事件的名称，只需要注意需要改变的值。监听器的名称我们可以都统一用 <code>update</code>。这样的写法更加专注。如果遇到多个属性需要同时监听的时候，这么写也会优雅很多。</p>
@@ -225,8 +222,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--home.vue--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--dialog组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">:visible.sync</span>=<span class="string">"visible"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 <p>当遇到多个一个对象中多个值需要监听的时候：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--home.vue--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--dialog组件,object = &#123;name:'zhenyizhen',age:70,sex:'unknown'&#125;--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-dialog</span> <span class="attr">:visible.sync</span>=<span class="string">"object"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="listeners"><a class="markdownIt-Anchor" href="#listeners"></a> $listeners</h3>
-<p>回到我们前面说的 <code>event</code>。在上一篇的 自定义input组件当中。如果我们想直接通过父组件自定义input组件的方法，普通的写法会无效，需要添加<code>.native</code> ，同时input组件的根元素必须为input标签。</p>
+<h3 id="listeners"><a href="#listeners" class="headerlink" title="$listeners"></a>$listeners</h3><p>回到我们前面说的 <code>event</code>。在上一篇的 自定义input组件当中。如果我们想直接通过父组件自定义input组件的方法，普通的写法会无效，需要添加<code>.native</code> ，同时input组件的根元素必须为input标签。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--home.vue --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 无效--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-input</span> @<span class="attr">focus</span>=<span class="string">"focus"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 有效--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-input</span> @<span class="attr">focus.native</span>=<span class="string">"focus"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="actionscript">  name:<span class="string">'home'</span>,</span></span><br><span class="line">  methods:&#123;</span><br><span class="line">    focus()&#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(focus)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>同 <code>$attrs</code> 接收组件传递的属性，vue也拥有个类似的属性，用来接收方法，叫 <code>$listeners</code>（2.4.0新增）。所有未添加 <code>.native</code> 修饰符的方法，都会被存储至此。该属性也可以在  <code>beforeCreate</code> 阶段访问。在上面的例子中，如果input组件的根元素不是input标签，就可以使用此方法。</p>
 
